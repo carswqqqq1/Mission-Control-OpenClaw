@@ -3,54 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arroyo Marketing Agent Command Center</title>
+    <title>Mission Control - Pixel Office</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="dashboard">
-        <header>
-            <h1>🎛️ Agent Command Center</h1>
-            <div class="stats">
-                <span id="active-agents">0</span> Active Agents
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <h1>🎮 Mission Control</h1>
+                <span class="subtitle">AI Agent Control Center</span>
+            </div>
+            <div class="header-right">
+                <div class="stat-badge">
+                    <span id="agent-count">0</span> Agents
+                </div>
+                <div class="stat-badge">
+                    <span id="active-count">0</span> Active
+                </div>
+                <button class="btn-icon" id="settings-btn" title="Settings">⚙️</button>
             </div>
         </header>
-        <main>
-            <section class="hierarchy">
-                <h2>Agent Hierarchy</h2>
-                <div class="org-chart">
-                    <div class="ceo-level">
-                        <div class="agent-card ceo">
-                            <span class="role">CEO Agent</span>
-                            <span class="status idle">Executive</span>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Canvas Container -->
+            <div class="canvas-container">
+                <canvas id="office-canvas" width="800" height="600"></canvas>
+                <div class="canvas-overlay" id="canvas-overlay"></div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <!-- Agent Spawner -->
+                <section class="panel">
+                    <h2>📋 Agent Roster</h2>
+                    <div class="agent-roster" id="agent-roster">
+                        <div class="roster-item idle" data-agent="CEO">
+                            <span class="avatar">👔</span>
+                            <span class="name">CEO Agent</span>
+                            <span class="status-badge idle">Executive</span>
+                        </div>
+                        <div class="roster-item idle" data-agent="Owen">
+                            <span class="avatar">🎯</span>
+                            <span class="name">Owen</span>
+                            <span class="status-badge idle">Lead Hunter</span>
+                        </div>
+                        <div class="roster-item idle" data-agent="Bob">
+                            <span class="avatar">🔍</span>
+                            <span class="name">Bob</span>
+                            <span class="status-badge idle"> Auditor</span>
                         </div>
                     </div>
-                    <div class="peer-level">
-                        <div class="agent-card peer">
-                            <span class="role">Owen</span>
-                            <span class="status idle">Lead Hunter</span>
+                    <button class="btn-primary" id="spawn-btn">+ Spawn Agent</button>
+                </section>
+
+                <!-- Selected Agent Panel -->
+                <section class="panel" id="selected-agent-panel" style="display: none;">
+                    <h2>👤 Selected Agent</h2>
+                    <div class="agent-details" id="agent-details">
+                        <div class="detail-row">
+                            <span class="label">Name:</span>
+                            <span class="value" id="detail-name">-</span>
                         </div>
-                        <div class="agent-card peer">
-                            <span class="role">Bob</span>
-                            <span class="status idle">Website Auditor</span>
+                        <div class="detail-row">
+                            <span class="label">Role:</span>
+                            <span class="value" id="detail-role">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Status:</span>
+                            <span class="value" id="detail-status">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="label">Activity:</span>
+                            <span class="value" id="detail-activity">-</span>
+                        </div>
+                        <div class="agent-actions">
+                            <button class="btn-danger" id="kill-agent-btn">Terminate</button>
+                            <button class="btn-secondary" id="assign-btn">Assign to Desk</button>
                         </div>
                     </div>
-                </div>
-            </section>
-            <section class="agent-panel">
-                <h2>Agent Controls</h2>
-                <div class="controls">
-                    <button onclick="spawnAgent('CEO')">Spawn CEO</button>
-                    <button onclick="spawnAgent('Owen')">Spawn Owen</button>
-                    <button onclick="spawnAgent('Bob')">Spawn Bob</button>
-                </div>
-                <div class="active-agents-list" id="active-agents-list"></div>
-            </section>
-            <section class="logs-panel">
-                <h2>Activity Logs</h2>
-                <div class="logs" id="logs"></div>
-            </section>
+                </section>
+
+                <!-- Activity Log -->
+                <section class="panel logs-panel">
+                    <h2>📜 Activity Log</h2>
+                    <div class="logs-container" id="logs-container">
+                        <div class="log-entry info">[System] Mission Control initialized</div>
+                    </div>
+                </section>
+            </aside>
         </main>
+
+        <!-- Desk Assignment Modal -->
+        <div class="modal" id="desk-modal" style="display: none;">
+            <div class="modal-content">
+                <h3>Assign to Desk</h3>
+                <p>Select a desk for this agent</p>
+                <div class="desk-grid" id="desk-grid"></div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" id="cancel-desk-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messaging Modal -->
+        <div class="modal" id="message-modal" style="display: none;">
+            <div class="modal-content message-modal-content">
+                <h3>💬 Message Agent</h3>
+                <div class="message-agent-name" id="message-agent-name">-</div>
+                <textarea id="message-input" placeholder="Enter your message..."></textarea>
+                <div class="modal-actions">
+                    <button class="btn-secondary" id="cancel-msg-btn">Cancel</button>
+                    <button class="btn-primary" id="send-msg-btn">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Speech Bubble Container -->
+        <div id="speech-bubbles"></div>
     </div>
+
     <script src="app.js"></script>
 </body>
 </html>
