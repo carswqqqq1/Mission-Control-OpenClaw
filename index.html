@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arroyo Marketing Agent Command Center</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>🎛️ Agent Command Center</h1>
+            <div class="stats">
+                <span id="active-agents">0</span> Active Agents
+            </div>
+        </header>
+        <main>
+            <section class="hierarchy">
+                <h2>Agent Hierarchy</h2>
+                <div class="org-chart">
+                    <div class="ceo-level">
+                        <div class="agent-card ceo">
+                            <span class="role">CEO Agent</span>
+                            <span class="status idle">Executive</span>
+                        </div>
+                    </div>
+                    <div class="peer-level">
+                        <div class="agent-card peer">
+                            <span class="role">Owen</span>
+                            <span class="status idle">Lead Hunter</span>
+                        </div>
+                        <div class="agent-card peer">
+                            <span class="role">Bob</span>
+                            <span class="status idle">Website Auditor</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="agent-panel">
+                <h2>Agent Controls</h2>
+                <div class="controls">
+                    <button onclick="spawnAgent('CEO')">Spawn CEO</button>
+                    <button onclick="spawnAgent('Owen')">Spawn Owen</button>
+                    <button onclick="spawnAgent('Bob')">Spawn Bob</button>
+                </div>
+                <div class="active-agents-list" id="active-agents-list"></div>
+            </section>
+            <section class="logs-panel">
+                <h2>Activity Logs</h2>
+                <div class="logs" id="logs"></div>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
